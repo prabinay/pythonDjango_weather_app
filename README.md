@@ -1,2 +1,5 @@
 # pythonDjango_weather_app
-Simple and easy beginner project for Django and Python. 
+
+This was developed as my college project.
+It is vey simple and easy to use.
+
