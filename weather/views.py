@@ -4,7 +4,10 @@ from django.shortcuts import render, redirect
 from .models import City
 from .forms import CityForm
 
+
 def index(request):
+    
+    #Open weathermMap API integration
     url= 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=7f22c9c7a8b5d003aa26bb233afc15d3'
 
     err_msg = ''
@@ -14,6 +17,7 @@ def index(request):
     if request.method == 'POST':
         form = CityForm(request.POST)
 
+        #City Verification and Addition
         if form.is_valid():
             new_city = form.cleaned_data['name']
             existing_city_count = City.objects.filter(name=new_city).count()
@@ -35,6 +39,8 @@ def index(request):
                 message = 'City added successfully!'
                 message_class = 'is-success'
 
+            
+    #Data from API to front 
     form= CityForm()
     cities= City.objects.all()
     weather_Data= []
@@ -58,6 +64,7 @@ def index(request):
     return render(request, 'weather/weather.html', context)
 
 
+#City Deletion 
 def delete_city(request, city_name):
     City.objects.get(name=city_name).delete()
     return redirect('home')
